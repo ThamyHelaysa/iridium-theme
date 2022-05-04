@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page layout="3columns" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="default_head_blocks"/>
+    <body>
+
+        <referenceContainer name="header.container">
+            <container name="header-wrapper" label="Page Header" as="header-wrapper" htmlTag="div" htmlClass="header-content header content">
+                <block name="logo" class="Magento\Theme\Block\Html\Header\Logo" />
+                <block class="Magento\Checkout\Block\Cart\Sidebar" name="minicart" as="mini_cart" />
+                <block name="top.search" as="topSearch" class="Magento\Framework\View\Element\Template" />
+            </container>
+        </referenceContainer>
+
+        <!-- Após o header-container !-->
+        <referenceContainer name="page.top">
+            <container name="top.container" as="topContainer" label="After Page Header Top" htmlTag="div" htmlClass="top-container"/>
+            <referenceBlock name="navigation.sections" remove="true" />
+            <block class="Magento\Theme\Block\Html\Breadcrumbs" name="breadcrumbs" as="breadcrumbs"/>
+        </referenceContainer>
+
+        <!-- Main container !-->
+        <referenceContainer name="main.content">
+            <block class="Magento\Framework\View\Element\Template" name="skip_to_content.target" before="-" template="Magento_Theme::html/skiptarget.phtml">
+                <arguments>
+                    <argument name="target_id" xsi:type="string">contentarea</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+
+        <!--- Main !-->
+        <referenceContainer name="content">
+            <block class="Magento\Framework\View\Element\FormKey" name="formkey"/>
+        </referenceContainer>
+
+        <referenceContainer name="sidebar.additional">
+            <referenceBlock name="catalog.compare.sidebar" remove="true" />
+            <referenceBlock name="wishlist_sidebar" remove="true" />
+            <referenceBlock name="sale.reorder.sidebar" remove="true" />
+        </referenceContainer>
+
+        <referenceContainer name="page.bottom.container">
+            <container name="page.bottom" label="Before Page Footer" htmlTag="div" htmlClass="content"/>
+        </referenceContainer>
+
+        <referenceContainer name="footer-container">
+            <referenceContainer name="footer" htmlClass="footer-box footer content">
+                <referenceBlock name="report.bugs" remove="true" />
+                <referenceBlock name="footer_links" remove="true" />
+            </referenceContainer>
+        </referenceContainer>
+
+        <move element="page.messages" destination="page.wrapper" before="-" />
+    </body>
+</page>
